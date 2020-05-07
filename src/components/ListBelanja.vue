@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-8">
+  <div class="">
     <div class="card">
       <div class="card-header bg-primary text-white">
         <h4 class="card-title">Daftar Belanja</h4>

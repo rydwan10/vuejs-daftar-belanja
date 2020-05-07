@@ -1,14 +1,20 @@
 <template>
   <div id="app" class="container mt-3">
     <div class="row">
-      <ListBelanja v-bind:data_belanja="data_belanja" v-on:hapus-belanjaan="hapusBelanjaan" />
-      <TambahDaftarBelanja
-        v-bind:data_belanja="data_belanja"
-        v-on:tambah-belanjaan="tambahBelanjaan"
-      />
-    </div>
-    <div class="row justify-content-end">
-      <Pembayaran v-bind:data_belanja="data_belanja" />
+        <div class="col-md-8">
+            <ListBelanja v-bind:data_belanja="data_belanja" v-on:hapus-belanjaan="hapusBelanjaan" />
+        </div>
+        <div class="col-md justify-content-end">
+          <TambahDaftarBelanja
+            v-bind:data_belanja="data_belanja"
+            v-on:tambah-belanjaan="tambahBelanjaan"
+          />
+        
+          <Pembayaran v-bind:data_belanja="data_belanja" />
+        
+        </div>
+         
+          
     </div>
   </div>
 </template>
@@ -55,6 +61,27 @@ export default {
           jumlah: 3,
           satuan: "kg",
           harga_satuan: 12000
+        },
+        {
+          id: 5,
+          nama_belanjaan: "Daging Anjing",
+          jumlah: 3,
+          satuan: "kg",
+          harga_satuan: 12000
+        },
+        {
+          id: 6,
+          nama_belanjaan: "Daging Anjing",
+          jumlah: 3,
+          satuan: "kg",
+          harga_satuan: 12000
+        },
+        {
+          id: 7,
+          nama_belanjaan: "Daging Anjing",
+          jumlah: 3,
+          satuan: "kg",
+          harga_satuan: 12000
         }
       ]
     };
@@ -66,7 +93,6 @@ export default {
     hapusBelanjaan(item_id) {
       console.log(item_id);
       this.data_belanja = this.data_belanja.filter(item => item.id !== item_id);
-      //console.log(this.data_belanja);
     }
   }
 };
