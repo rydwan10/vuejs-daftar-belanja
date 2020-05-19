@@ -7,7 +7,7 @@
 
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-bordered table-responsive">
+          <table class="table table-bordered">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -31,7 +31,7 @@
                   <button @click="$emit('hapus-belanjaan', item.id)" class="btn btn-sm btn-danger">
                     <i class="fa fa-trash"></i>
                   </button>
-                  <button class="btn btn-sm btn-success" style="margin-left: 1px;">
+                  <button @click="$emit('edit-belanjaan', item)" class="btn btn-sm btn-success" style="margin-left: 1px;">
                     <i class="fa fa-edit"></i>
                   </button>
                 </td>
@@ -69,5 +69,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+  .card-header {
+    background: rgb(52, 183, 232)!important;
+  }
 </style>

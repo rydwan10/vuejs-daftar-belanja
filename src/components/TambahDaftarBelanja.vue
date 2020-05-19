@@ -1,12 +1,14 @@
 <template>
   <div class="">
     <div class="card">
-      <div class="card-header bg-primary text-white">
+      <div v-if="showUpdateButton" class="card-header bg-success text-white text-center">
+        <h4 class="card-title">Edit Daftar Belanja</h4>
+      </div>
+      <div v-if="showProcessButton" class="card-header bg-primary text-white text-center">
         <h4 class="card-title">Tambah Daftar Belanja</h4>
       </div>
-
-      <div class="card-body">
-        <form @submit="tambahBelanjaan">
+      <div class="card-body" v-if="toggleForm">
+        <form>
           <div class="form-group">
             <label for="namaBelanjaan">Nama Belanjaan</label>
             <input type="text" class="form-control" v-bind:class="{'is-invalid': validasiNama}" name="namaBelanjaan" v-model="namaBelanjaan" />
@@ -38,7 +40,15 @@
             <small v-if="validasiHarga" class="form-text text-danger">Harga satuan harus diisi dan tidak boleh negatif!</small>
           </div>
 
-          <button class="btn btn-success btn-block mt-4" type="submit">Proses</button>
+          <button v-if="showProcessButton" @click="tambahBelanjaan" class="btn btn-success btn-block mt-4" type="button">Proses</button>
+          <div v-if="showUpdateButton">
+              <button @click="updateBelanjaan" class="btn btn-primary btn-block mt-4" type="button">Update</button>
+              <button @click="batalEdit" class="float-right btn btn-danger btn-block">Batal</button>
+          </div>
+          <!-- <ul>
+            
+            <li v-for="data in dataEdit" v-bind:key="data.id">{{data.nama_belanjaan}}</li>
+          </ul> -->
         </form>
       </div>
     </div>
@@ -48,9 +58,10 @@
 <script>
 export default {
   name: "TambahDaftarBelanja",
-  props: ["data_belanja"],
+  props: ["data_belanja", "dataEdit"],
   data() {
     return {
+      idEdit: 0,
       namaBelanjaan: "",
       jumlah: "",
       satuan: "",
@@ -64,11 +75,21 @@ export default {
       validasiJumlah: false,
       validasiSatuan: false,
       validasiHarga: false,
+
+      // Toggle Form
+      toggleForm: true,
+
+      // Show Update button 
+      showUpdateButton: false,
+
+      // Show Process button
+      showProcessButton: true
     };
   },
   methods: {
     tambahBelanjaan(e) {
       e.preventDefault();
+      // Validasi form ketika kosong atau bukan angka
       this.jumlah != '' ? this.validasiJumlah = false : this.validasiJumlah = true;
       this.namaBelanjaan != '' ? this.validasiNama = false : this.validasiNama = true;
       this.satuan != '' ? this.validasiSatuan = false : this.validasiSatuan = true;
@@ -92,6 +113,42 @@ export default {
         
       }
     },
+    dataEditKeForm: function(item){
+        this.namaBelanjaan = item.nama_belanjaan;
+        this.jumlah = item.jumlah;
+        this.satuan = item.satuan;
+        this.hargaSatuan = item.harga_satuan;
+        this.idEdit = item.id;
+    },
+    updateBelanjaan: function(){
+        const editedData = {
+          id: this.idEdit,
+          nama_belanjaan: this.namaBelanjaan,
+          jumlah: this.jumlah,
+          satuan: this.satuan,
+          harga_satuan: this.hargaSatuan
+        }
+
+        // Send edited data to App.vue
+        this.$emit("edit-belanjaan", editedData);
+        this.namaBelanjaan = "";
+        this.jumlah = "";
+        this.satuan = "";
+        this.hargaSatuan = "";
+
+        this.showUpdateButton = false;
+        this.showProcessButton = true;
+    },
+    batalEdit: function(){
+        this.showUpdateButton = false;
+        this.showProcessButton = true;
+
+        // Clear Forms
+        this.namaBelanjaan = "";
+        this.jumlah = "";
+        this.satuan = "";
+        this.hargaSatuan = "";
+    }
   },
   computed: {
     
@@ -108,7 +165,7 @@ export default {
         }else if(this.jumlah != ''){
             this.validasiJumlah = false;
         }
-        console.log('helo')
+        // console.log('helo')
       },
       satuan: function(){
         if(this.satuan != ''){
@@ -126,5 +183,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .card-header {
+      background: rgb(52, 183, 232)!important;
+
+  }
 </style>

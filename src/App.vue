@@ -1,13 +1,24 @@
 <template>
+<div> 
+  <Navbar />
   <div id="app" class="container mt-3">
     <div class="row">
         <div class="col-md-8">
-            <ListBelanja v-bind:data_belanja="data_belanja" v-on:hapus-belanjaan="hapusBelanjaan" />
+
+            <ListBelanja 
+            v-bind:data_belanja="data_belanja" 
+            v-on:hapus-belanjaan="hapusBelanjaan" 
+            v-on:edit-belanjaan="kirimDataEdit"/>
+
         </div>
         <div class="col-md justify-content-end">
+
           <TambahDaftarBelanja
+            ref="TambahDaftarBelanja"
             v-bind:data_belanja="data_belanja"
             v-on:tambah-belanjaan="tambahBelanjaan"
+            v-bind:dataEdit="dataEdit"
+            v-on:edit-belanjaan="updateBelanjaan" 
           />
         
           <Pembayaran v-bind:data_belanja="data_belanja" />
@@ -17,19 +28,25 @@
           
     </div>
   </div>
+  <Footer />
+</div>
 </template>
 
 <script>
 import ListBelanja from "./components/ListBelanja";
 import TambahDaftarBelanja from "./components/TambahDaftarBelanja.vue";
 import Pembayaran from "./components/Pembayaran.vue";
+import Navbar from "./components/Navbar.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
   name: "App",
   components: {
     ListBelanja,
     TambahDaftarBelanja,
-    Pembayaran
+    Pembayaran,
+    Navbar, 
+    Footer
   },
   data() {
     return {
@@ -83,6 +100,11 @@ export default {
           satuan: "kg",
           harga_satuan: 12000
         }
+      ],
+      dataEdit:[
+        {
+          
+        }
       ]
     };
   },
@@ -91,8 +113,26 @@ export default {
       this.data_belanja = [...this.data_belanja, newBelanjaan];
     },
     hapusBelanjaan(item_id) {
-      console.log(item_id);
+      // console.log(item_id);
       this.data_belanja = this.data_belanja.filter(item => item.id !== item_id);
+    },
+    kirimDataEdit(item){
+      // Kirim data dari List ke form TambahData untuk melakukan edit
+      if(this.dataEdit.length == 0){
+        this.dataEdit.push(item);
+      }else if(this.dataEdit.length > 0){
+        this.dataEdit.splice(0, 1);
+        this.dataEdit.push(item)
+      }
+
+      this.$refs.TambahDaftarBelanja.dataEditKeForm(item);
+      this.$refs.TambahDaftarBelanja.showUpdateButton = true;
+      this.$refs.TambahDaftarBelanja.showProcessButton = false;
+
+      // console.log(this.dataEdit)
+    },
+    updateBelanjaan(editedData){
+      this.data_belanja.splice(editedData.id -1, 1, editedData);
     }
   }
 };
