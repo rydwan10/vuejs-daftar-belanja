@@ -11,7 +11,7 @@
               <div class="input-group-prepend">
                 <div class="input-group-text">Rp.</div>
               </div>
-              <input type="number" class="form-control" name="bayar" v-model="bayar" />
+              <input v-on:keypress.enter="showModalInvoice" type="number" class="form-control" name="bayar" v-model="bayar" />
             </div>
             <label>Kembalian:</label>
             <h4 v-if="bayar < 0" style="color: red;">Input tidak boleh negatif!</h4>
@@ -19,7 +19,7 @@
             <h4 v-else-if="bayar < totalHarga" style="color: red;">Pembayaran kurang: {{kembalian | currency}}</h4>
             <h4 v-else style="color: green;">{{ kembalian | currency}}</h4>
 
-            <button :disabled="btnLanjutkanTransaksi" @click="showModalTransaksi" data-toggle="modal" data-target="#modelId" class="btn btn-disabled btn-success btn-block mt-2" type="button">Lanjutkan Transaksi</button>
+            <button :disabled="btnLanjutkanTransaksi" data-toggle="modal" data-target="#modelId" class="btn btn-disabled btn-success btn-block mt-2" type="button" id="btnLanjutkanTransaksi">Lanjutkan Transaksi</button>
           </form>
         </div>
       </div>
@@ -38,18 +38,18 @@
                 <span aria-hidden="true">&times;</span>
               </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body modal-open" id="modalBody">
 
            <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nama Belanjaan</th>
-                  <th scope="col">Jumlah</th>
-                  <th scope="col">Satuan</th>
-                  <th scope="col">Harga Satuan</th>
-                  <th scope="col">Sub Total</th>
+                  <th>#</th>
+                  <th>Nama Belanjaan</th>
+                  <th>Jumlah</th>
+                  <th>Satuan</th>
+                  <th>Harga Satuan</th>
+                  <th>Sub Total</th>
                 </tr>
               </thead>
               <tbody>
@@ -63,8 +63,7 @@
                 </tr>
               </tbody>
             </table>
-  
-
+           </div>
             <!--  Detail pembayaran pada modal -->
             <div class="row d-flex justify-content-center">
               <!-- Card 1 -->
@@ -83,10 +82,12 @@
                   <hr>
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title"><b>Kembalian</b></h5>
+                      <h5 v-if="bayar > totalHarga" class="card-title"><b>Kembalian</b></h5>
+                      <h5 v-else-if="bayar < totalHarga" class="card-title text-danger"><b>Kurang</b></h5>
                     </div>
                     <div class="col">
-                      <p>{{ kembalian | currency }}</p>
+                      <p v-if="bayar > totalHarga">{{ kembalian | currency }}</p>
+                      <p v-else-if="bayar < totalHarga" class="text-danger">{{ kembalian | currency }}</p>
                     </div>
                   </div>
                 </div>
@@ -107,16 +108,16 @@
                 <hr>
                   <div class="row">
                     <div class="col">
-                      <p class="card-title"><b><i>Terimakasih telah berbelanja disini :)</i></b></p>
+                      <span class="" style="padding-bottom: 50px;">
+                        <p class="card-title text-large" ><i>Terimakasih telah berbelanja disini :)</i></p>
+                      </span>
                     </div>
-                    
                   </div>
                 </div>
               </div>
               <!-- End of Card 2 -->
               
             </div>
-           </div>
 
           </div>
           <div class="modal-footer">
@@ -169,27 +170,35 @@ export default {
     }
   },
   methods: {
-    showModalTransaksi: function(){
-
-    },
-    showInvoice: function(){
-      alert('this is invoice')
+    showModalInvoice: function(e){
+      e.preventDefault();
+      if(this.bayar == ''){
+        e.preventDefault();
+      }else{
+        this.btnLanjutkanTransaksi = false;
+        document.getElementById('btnLanjutkanTransaksi').click();
+      }
     },
     subTotal: function(harga_satuan, jumlah) {
       return harga_satuan * jumlah;
     },
     printInvoice: function(e){
       e.preventDefault();
-      window.print();
+      this.$htmlToPaper('modalBody');
     }
   }
-};
+}
 </script>
 
 <style scoped>
   .modal-header {
     background: rgb(52, 183, 232) !important;
   }
+  @media print {
+      @page {
+        size: landscape
+      }
+  }
  
-
+  
 </style>

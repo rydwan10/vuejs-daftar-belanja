@@ -1,11 +1,11 @@
 <template>
   <div class="">
     <div class="card">
-      <div v-if="showUpdateButton" class="card-header bg-success text-white text-center">
-        <h4 class="card-title">Edit Daftar Belanja</h4>
+      <div v-if="showUpdateButton" class="card-header card-header-edit text-white text-center">
+        <h4 class="card-title"><i class="fa fa-edit"></i> Edit Daftar Belanja</h4>
       </div>
       <div v-if="showProcessButton" class="card-header bg-primary text-white text-center">
-        <h4 class="card-title">Tambah Daftar Belanja</h4>
+        <h4 class="card-title"><i class="fa fa-plus"></i> Tambah Daftar Belanja</h4>
       </div>
       <div class="card-body" v-if="toggleForm">
         <form>
@@ -16,15 +16,17 @@
           </div>
           <div class="form-group">
             <label for="jumlah">Jumlah</label>
-            <input type="number" class="form-control" v-bind:class="{'is-invalid': validasiJumlah}" name="jumlah" v-model="jumlah" />
+            <input type="number" class="form-control col-5" v-bind:class="{'is-invalid': validasiJumlah}" name="jumlah" v-model="jumlah" />
             <small v-if="validasiJumlah" class="form-text text-danger">Jumlah tidak boleh kosong atau kurang dari nol!</small>
           </div>
           <div class="form-group">
             <label for="satuan">Satuan</label>
-            <select name="satuan" class="form-control" v-bind:class="{'is-invalid': validasiSatuan}" v-model="satuan">
+            <select name="satuan" class="form-control col-7" v-bind:class="{'is-invalid': validasiSatuan}" v-model="satuan">
               <option value='' selected disabled>Pilih Satuan</option>
               <option value="pcs">Pcs</option>
               <option value="kg">Kg</option>
+              <option value="ons">Ons</option>
+              <option value="gram">Gram</option>
               <option value="liter">Liter</option>
               <option value="renteng">Renteng</option>
               <option value="karton">Karton</option>
@@ -45,10 +47,6 @@
               <button @click="updateBelanjaan" class="btn btn-primary btn-block mt-4" type="button">Update</button>
               <button @click="batalEdit" class="float-right btn btn-danger btn-block">Batal</button>
           </div>
-          <!-- <ul>
-            
-            <li v-for="data in dataEdit" v-bind:key="data.id">{{data.nama_belanjaan}}</li>
-          </ul> -->
         </form>
       </div>
     </div>
@@ -89,9 +87,10 @@ export default {
   methods: {
     tambahBelanjaan(e) {
       e.preventDefault();
+      this.$swal('Hello Vue world!!!');
       // Validasi form ketika kosong atau bukan angka
-      this.jumlah != '' ? this.validasiJumlah = false : this.validasiJumlah = true;
       this.namaBelanjaan != '' ? this.validasiNama = false : this.validasiNama = true;
+      this.jumlah != '' ? this.validasiJumlah = false : this.validasiJumlah = true;
       this.satuan != '' ? this.validasiSatuan = false : this.validasiSatuan = true;
       this.hargaSatuan != '' ? this.validasiHarga = false : this.validasiHarga = true;
 
@@ -106,6 +105,7 @@ export default {
 
         // Kirim ke App.vue
         this.$emit("tambah-belanjaan", newBelanjaan);
+
         this.namaBelanjaan = "";
         this.jumlah = "";
         this.satuan = "";
@@ -150,9 +150,6 @@ export default {
         this.hargaSatuan = "";
     }
   },
-  computed: {
-    
-  },
   watch: {
       namaBelanjaan: function(){
           if(this.namaBelanjaan != ''){
@@ -160,12 +157,13 @@ export default {
           }
       },
       jumlah: function(){
+       
         if(this.jumlah <= 0){
           this.validasiJumlah = true;
         }else if(this.jumlah != ''){
             this.validasiJumlah = false;
         }
-        // console.log('helo')
+      
       },
       satuan: function(){
         if(this.satuan != ''){
@@ -186,6 +184,8 @@ export default {
 <style scoped>
   .card-header {
       background: rgb(52, 183, 232)!important;
-
+  }
+  .card-header-edit{
+      background: #65F16F !important;
   }
 </style>

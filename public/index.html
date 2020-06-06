@@ -9,6 +9,13 @@
   <link rel="stylesheet" href="<%= BASE_URL %>bootstrap/css/bootstrap.min.css">
   <script defer src="<%= BASE_URL %>font-awesome/svg-with-js/js/fontawesome-all.min.js"></script>
   <title><%= htmlWebpackPlugin.options.title %></title>
+  <style>
+    @media print {
+      @page {
+        size: landscape
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -21,6 +28,7 @@
   <script type="text/javascript" src="<%= BASE_URL %>jquery/jquery.js"></script>
   <script type="text/javascript" src="<%= BASE_URL %>popper/popper.js"></script>
   <script type="text/javascript" src="<%= BASE_URL %>bootstrap/js/bootstrap.js"></script>
+
 
 
 </body>

@@ -2,12 +2,12 @@
   <div class="">
     <div class="card">
       <div class="card-header bg-primary text-white">
-        <h4 class="card-title">Daftar Belanja</h4>
+        <h4 class="card-title"><i class="fa fa-shopping-cart fa-lg"></i> Daftar Belanja</h4>
       </div>
 
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-bordered">
+          <table class="table table-hover">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -39,8 +39,11 @@
             </tbody>
           </table>
         </div>
-        <span class="btn btn-outline-primary float-right">
-          <span class="font-weight-bold">Total Harga:</span>
+      </div>
+
+      <div class="card-footer">
+        <span class="float-right">
+          <span class="font-weight-bold">Total:</span>
           {{ total | currency}}
         </span>
       </div>

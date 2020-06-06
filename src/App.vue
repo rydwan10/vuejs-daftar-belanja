@@ -74,28 +74,28 @@ export default {
         },
         {
           id: 4,
-          nama_belanjaan: "Daging Anjing",
-          jumlah: 3,
+          nama_belanjaan: "Tomat",
+          jumlah: 1,
           satuan: "kg",
           harga_satuan: 12000
         },
         {
           id: 5,
-          nama_belanjaan: "Daging Anjing",
+          nama_belanjaan: "Lengkuas",
           jumlah: 3,
           satuan: "kg",
           harga_satuan: 12000
         },
         {
           id: 6,
-          nama_belanjaan: "Daging Anjing",
+          nama_belanjaan: "Ikan Asin",
           jumlah: 3,
           satuan: "kg",
           harga_satuan: 12000
         },
         {
           id: 7,
-          nama_belanjaan: "Daging Anjing",
+          nama_belanjaan: "Kol",
           jumlah: 3,
           satuan: "kg",
           harga_satuan: 12000
