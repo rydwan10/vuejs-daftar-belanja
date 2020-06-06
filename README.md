@@ -1,4 +1,6 @@
-# example
+# (Vue.js) Vue Daftar Belanja
+
+Frontend untuk aplikasi kasir. Dibangun menggunakan framework javascript Vue.js dan framework CSS Bootstrap 4.5.0 
 
 ## Project setup
 ```
