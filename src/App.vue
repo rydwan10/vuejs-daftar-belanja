@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-md-8">
           <!-- Tampilkan jika data kosong -->
-          <div v-if="data_belanja.length == 0" class="card">
+          <div v-if="data_belanja.length == 0" class="card mb-3">
             <div class="card-header bg-primary">
               <h4 class="text-white">
                 <i class="fa fa-lg fa-shopping-cart"></i> Daftar Belanja
