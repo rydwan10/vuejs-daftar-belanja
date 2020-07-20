@@ -1,28 +1,55 @@
 <template>
-  <div class="">
+  <div class>
     <div class="card">
       <div v-if="showUpdateButton" class="card-header card-header-edit text-white text-center">
-        <h4 class="card-title"><i class="fa fa-edit"></i> Edit Daftar Belanja</h4>
+        <h4 class="card-title">
+          <i class="fa fa-edit"></i> Edit Daftar Belanja
+        </h4>
       </div>
       <div v-if="showProcessButton" class="card-header bg-primary text-white text-center">
-        <h4 class="card-title"><i class="fa fa-plus"></i> Tambah Daftar Belanja</h4>
+        <h4 class="card-title">
+          <i class="fa fa-plus"></i> Tambah Daftar Belanja
+        </h4>
       </div>
       <div class="card-body" v-if="toggleForm">
         <form>
           <div class="form-group">
             <label for="namaBelanjaan">Nama Belanjaan</label>
-            <input type="text" class="form-control" v-bind:class="{'is-invalid': validasiNama}" name="namaBelanjaan" v-model="namaBelanjaan" />
-            <small v-if="validasiNama" class="form-text text-danger">Nama Belanjaan tidak boleh kosong!</small>
+            <input
+              type="text"
+              class="form-control"
+              v-bind:class="{'is-invalid': validasiNama}"
+              name="namaBelanjaan"
+              v-model="namaBelanjaan"
+            />
+            <small
+              v-if="validasiNama"
+              class="form-text text-danger"
+            >Nama Belanjaan tidak boleh kosong!</small>
           </div>
           <div class="form-group">
             <label for="jumlah">Jumlah</label>
-            <input type="number" class="form-control col-5" v-bind:class="{'is-invalid': validasiJumlah}" name="jumlah" v-model="jumlah" />
-            <small v-if="validasiJumlah" class="form-text text-danger">Jumlah tidak boleh kosong atau kurang dari nol!</small>
+            <input
+              type="number"
+              class="form-control col-5"
+              v-bind:class="{'is-invalid': validasiJumlah}"
+              name="jumlah"
+              v-model="jumlah"
+            />
+            <small
+              v-if="validasiJumlah"
+              class="form-text text-danger"
+            >Jumlah tidak boleh kosong atau kurang dari nol!</small>
           </div>
           <div class="form-group">
             <label for="satuan">Satuan</label>
-            <select name="satuan" class="form-control col-7" v-bind:class="{'is-invalid': validasiSatuan}" v-model="satuan">
-              <option value='' selected disabled>Pilih Satuan</option>
+            <select
+              name="satuan"
+              class="form-control col-7"
+              v-bind:class="{'is-invalid': validasiSatuan}"
+              v-model="satuan"
+            >
+              <option value selected disabled>Pilih Satuan</option>
               <option value="pcs">Pcs</option>
               <option value="kg">Kg</option>
               <option value="ons">Ons</option>
@@ -38,14 +65,32 @@
             <div class="input-group-prepend">
               <div class="input-group-text">Rp.</div>
             </div>
-            <input type="number" class="form-control" v-bind:class="{'is-invalid': validasiHarga}" name="hargaSatuan" v-model="hargaSatuan" />
-            <small v-if="validasiHarga" class="form-text text-danger">Harga satuan harus diisi dan tidak boleh negatif!</small>
+            <input
+              type="number"
+              class="form-control"
+              v-bind:class="{'is-invalid': validasiHarga}"
+              name="hargaSatuan"
+              v-model="hargaSatuan"
+            />
+            <small
+              v-if="validasiHarga"
+              class="form-text text-danger"
+            >Harga satuan harus diisi dan tidak boleh negatif!</small>
           </div>
 
-          <button v-if="showProcessButton" @click="tambahBelanjaan" class="btn btn-success btn-block mt-4" type="button">Proses</button>
+          <button
+            v-if="showProcessButton"
+            @click="tambahBelanjaan"
+            class="btn btn-success btn-block mt-4"
+            type="button"
+          >Proses</button>
           <div v-if="showUpdateButton">
-              <button @click="updateBelanjaan" class="btn btn-primary btn-block mt-4" type="button">Update</button>
-              <button @click="batalEdit" class="float-right btn btn-danger btn-block">Batal</button>
+            <button
+              @click="updateBelanjaan"
+              class="btn btn-primary btn-block mt-4"
+              type="button"
+            >Update</button>
+            <button @click="batalEdit" class="float-right btn btn-danger btn-block">Batal</button>
           </div>
         </form>
       </div>
@@ -77,7 +122,7 @@ export default {
       // Toggle Form
       toggleForm: true,
 
-      // Show Update button 
+      // Show Update button
       showUpdateButton: false,
 
       // Show Process button
@@ -87,21 +132,35 @@ export default {
   methods: {
     tambahBelanjaan(e) {
       e.preventDefault();
-      this.$swal('Hello Vue world!!!');
+      // this.$swal('Hello Vue world!!!');
       // Validasi form ketika kosong atau bukan angka
-      this.namaBelanjaan != '' ? this.validasiNama = false : this.validasiNama = true;
-      this.jumlah != '' ? this.validasiJumlah = false : this.validasiJumlah = true;
-      this.satuan != '' ? this.validasiSatuan = false : this.validasiSatuan = true;
-      this.hargaSatuan != '' ? this.validasiHarga = false : this.validasiHarga = true;
+      this.namaBelanjaan != ""
+        ? (this.validasiNama = false)
+        : (this.validasiNama = true);
+      this.jumlah != ""
+        ? (this.validasiJumlah = false)
+        : (this.validasiJumlah = true);
+      this.satuan != ""
+        ? (this.validasiSatuan = false)
+        : (this.validasiSatuan = true);
+      this.hargaSatuan != ""
+        ? (this.validasiHarga = false)
+        : (this.validasiHarga = true);
 
-      if(this.namaBelanjaan != '' && this.jumlah != '' && this.jumlah > 0 && this.satuan != '' && this.hargaSatuan != ''){
+      if (
+        this.namaBelanjaan != "" &&
+        this.jumlah != "" &&
+        this.jumlah > 0 &&
+        this.satuan != "" &&
+        this.hargaSatuan != ""
+      ) {
         const newBelanjaan = {
           id: this.data_belanja.length + 1,
           nama_belanjaan: this.namaBelanjaan,
           jumlah: this.jumlah,
           satuan: this.satuan,
           harga_satuan: this.hargaSatuan
-        }
+        };
 
         // Kirim ke App.vue
         this.$emit("tambah-belanjaan", newBelanjaan);
@@ -110,82 +169,79 @@ export default {
         this.jumlah = "";
         this.satuan = "";
         this.hargaSatuan = "";
-        
       }
     },
-    dataEditKeForm: function(item){
-        this.namaBelanjaan = item.nama_belanjaan;
-        this.jumlah = item.jumlah;
-        this.satuan = item.satuan;
-        this.hargaSatuan = item.harga_satuan;
-        this.idEdit = item.id;
+    dataEditKeForm: function(item) {
+      this.namaBelanjaan = item.nama_belanjaan;
+      this.jumlah = item.jumlah;
+      this.satuan = item.satuan;
+      this.hargaSatuan = item.harga_satuan;
+      this.idEdit = item.id;
     },
-    updateBelanjaan: function(){
-        const editedData = {
-          id: this.idEdit,
-          nama_belanjaan: this.namaBelanjaan,
-          jumlah: this.jumlah,
-          satuan: this.satuan,
-          harga_satuan: this.hargaSatuan
-        }
+    updateBelanjaan: function() {
+      const editedData = {
+        id: this.idEdit,
+        nama_belanjaan: this.namaBelanjaan,
+        jumlah: this.jumlah,
+        satuan: this.satuan,
+        harga_satuan: this.hargaSatuan
+      };
 
-        // Send edited data to App.vue
-        this.$emit("edit-belanjaan", editedData);
-        this.namaBelanjaan = "";
-        this.jumlah = "";
-        this.satuan = "";
-        this.hargaSatuan = "";
+      // Send edited data to App.vue
+      this.$emit("edit-belanjaan", editedData);
+      this.namaBelanjaan = "";
+      this.jumlah = "";
+      this.satuan = "";
+      this.hargaSatuan = "";
 
-        this.showUpdateButton = false;
-        this.showProcessButton = true;
+      this.showUpdateButton = false;
+      this.showProcessButton = true;
     },
-    batalEdit: function(){
-        this.showUpdateButton = false;
-        this.showProcessButton = true;
+    batalEdit: function() {
+      this.showUpdateButton = false;
+      this.showProcessButton = true;
 
-        // Clear Forms
-        this.namaBelanjaan = "";
-        this.jumlah = "";
-        this.satuan = "";
-        this.hargaSatuan = "";
+      // Clear Forms
+      this.namaBelanjaan = "";
+      this.jumlah = "";
+      this.satuan = "";
+      this.hargaSatuan = "";
     }
   },
   watch: {
-      namaBelanjaan: function(){
-          if(this.namaBelanjaan != ''){
-            this.validasiNama = false;
-          }
-      },
-      jumlah: function(){
-       
-        if(this.jumlah <= 0){
-          this.validasiJumlah = true;
-        }else if(this.jumlah != ''){
-            this.validasiJumlah = false;
-        }
-      
-      },
-      satuan: function(){
-        if(this.satuan != ''){
-          this.validasiSatuan = false;
-        }
-      },
-      hargaSatuan: function(){
-        if(this.hargaSatuan <= 0){
-          this.validasiHarga = true;
-        }else if(this.hargaSatuan != ''){
-            this.validasiHarga = false;
-        }
+    namaBelanjaan: function() {
+      if (this.namaBelanjaan != "") {
+        this.validasiNama = false;
       }
+    },
+    jumlah: function() {
+      if (this.jumlah <= 0) {
+        this.validasiJumlah = true;
+      } else if (this.jumlah != "") {
+        this.validasiJumlah = false;
+      }
+    },
+    satuan: function() {
+      if (this.satuan != "") {
+        this.validasiSatuan = false;
+      }
+    },
+    hargaSatuan: function() {
+      if (this.hargaSatuan <= 0) {
+        this.validasiHarga = true;
+      } else if (this.hargaSatuan != "") {
+        this.validasiHarga = false;
+      }
+    }
   }
-}
+};
 </script>
 
 <style scoped>
-  .card-header {
-      background: rgb(52, 183, 232)!important;
-  }
-  .card-header-edit{
-      background: #65F16F !important;
-  }
+.card-header {
+  background: rgb(52, 183, 232) !important;
+}
+.card-header-edit {
+  background: #65f16f !important;
+}
 </style>
