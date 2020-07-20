@@ -154,12 +154,12 @@ export default {
         .then(result => {
           if (result.value) {
             this.data_belanja = [];
+            this.$swal.fire(
+              "Sukses Dihapus!",
+              "Daftar belanja telah dibersihkan.",
+              "success"
+            );
           }
-          this.$swal.fire(
-            "Sukses Dihapus!",
-            "Daftar belanja telah dibersihkan.",
-            "success"
-          );
         });
     }
   }
