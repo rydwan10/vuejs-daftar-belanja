@@ -1,35 +1,44 @@
 <template>
-<div> 
-  <Navbar />
-  <div id="app" class="container mt-3">
-    <div class="row">
+  <div>
+    <Navbar />
+    <div id="app" class="container mt-3">
+      <div class="row">
         <div class="col-md-8">
+          <!-- Tampilkan jika data kosong -->
+          <div v-if="data_belanja.length == 0" class="card">
+            <div class="card-header bg-primary">
+              <h4 class="text-white">
+                <i class="fa fa-lg fa-shopping-cart"></i> Daftar Belanja
+              </h4>
+            </div>
+            <div class="card-body text-center">
+              <h4>Daftar Kosong....</h4>
+            </div>
+          </div>
 
-            <ListBelanja 
-            v-bind:data_belanja="data_belanja" 
-            v-on:hapus-belanjaan="hapusBelanjaan" 
-            v-on:edit-belanjaan="kirimDataEdit"/>
-
+          <ListBelanja
+            v-else
+            v-bind:data_belanja="data_belanja"
+            v-on:hapus-belanjaan="hapusBelanjaan"
+            v-on:edit-belanjaan="kirimDataEdit"
+            v-on:clear-list="clearList"
+          />
         </div>
         <div class="col-md justify-content-end">
-
           <TambahDaftarBelanja
             ref="TambahDaftarBelanja"
             v-bind:data_belanja="data_belanja"
             v-on:tambah-belanjaan="tambahBelanjaan"
             v-bind:dataEdit="dataEdit"
-            v-on:edit-belanjaan="updateBelanjaan" 
+            v-on:edit-belanjaan="updateBelanjaan"
           />
-        
+
           <Pembayaran v-bind:data_belanja="data_belanja" />
-        
         </div>
-         
-          
+      </div>
     </div>
+    <Footer />
   </div>
-  <Footer />
-</div>
 </template>
 
 <script>
@@ -45,7 +54,7 @@ export default {
     ListBelanja,
     TambahDaftarBelanja,
     Pembayaran,
-    Navbar, 
+    Navbar,
     Footer
   },
   data() {
@@ -101,11 +110,7 @@ export default {
           harga_satuan: 12000
         }
       ],
-      dataEdit:[
-        {
-          
-        }
-      ]
+      dataEdit: [{}]
     };
   },
   methods: {
@@ -116,13 +121,13 @@ export default {
       // console.log(item_id);
       this.data_belanja = this.data_belanja.filter(item => item.id !== item_id);
     },
-    kirimDataEdit(item){
+    kirimDataEdit(item) {
       // Kirim data dari List ke form TambahData untuk melakukan edit
-      if(this.dataEdit.length == 0){
+      if (this.dataEdit.length == 0) {
         this.dataEdit.push(item);
-      }else if(this.dataEdit.length > 0){
+      } else if (this.dataEdit.length > 0) {
         this.dataEdit.splice(0, 1);
-        this.dataEdit.push(item)
+        this.dataEdit.push(item);
       }
 
       this.$refs.TambahDaftarBelanja.dataEditKeForm(item);
@@ -131,12 +136,38 @@ export default {
 
       // console.log(this.dataEdit)
     },
-    updateBelanjaan(editedData){
-      this.data_belanja.splice(editedData.id -1, 1, editedData);
+    updateBelanjaan(editedData) {
+      this.data_belanja.splice(editedData.id - 1, 1, editedData);
+    },
+    clearList() {
+      this.$swal
+        .fire({
+          title: "Bersihkan daftar belanja?",
+          text: "Daftar yang terhapus tidak bisa dikembalikan!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Ya",
+          cancelButtonText: "Batal"
+        })
+        .then(result => {
+          if (result.value) {
+            this.data_belanja = [];
+          }
+          this.$swal.fire(
+            "Sukses Dihapus!",
+            "Daftar belanja telah dibersihkan.",
+            "success"
+          );
+        });
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
+.card-header {
+  background: rgb(52, 183, 232) !important;
+}
 </style>

@@ -1,8 +1,13 @@
 <template>
-  <div class="">
+  <div class="mb-3">
     <div class="card">
       <div class="card-header bg-primary text-white">
-        <h4 class="card-title"><i class="fa fa-shopping-cart fa-lg"></i> Daftar Belanja</h4>
+        <h4 class="card-title">
+          <i class="fa fa-shopping-cart fa-lg"></i> Daftar Belanja
+          <button class="btn btn-danger float-right" @click="$emit('clear-list')">
+            <i class="fa fa-trash"></i> Clear
+          </button>
+        </h4>
       </div>
 
       <div class="card-body">
@@ -31,7 +36,11 @@
                   <button @click="$emit('hapus-belanjaan', item.id)" class="btn btn-sm btn-danger">
                     <i class="fa fa-trash"></i>
                   </button>
-                  <button @click="$emit('edit-belanjaan', item)" class="btn btn-sm btn-success" style="margin-left: 1px;">
+                  <button
+                    @click="$emit('edit-belanjaan', item)"
+                    class="btn btn-sm btn-success"
+                    style="margin-left: 1px;"
+                  >
                     <i class="fa fa-edit"></i>
                   </button>
                 </td>
@@ -73,7 +82,7 @@ export default {
 </script>
 
 <style scoped>
-  .card-header {
-    background: rgb(52, 183, 232)!important;
-  }
+.card-header {
+  background: rgb(52, 183, 232) !important;
+}
 </style>
