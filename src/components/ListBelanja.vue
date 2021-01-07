@@ -3,8 +3,11 @@
     <div class="card">
       <div class="card-header bg-primary text-white">
         <h4 class="card-title">
-          <i class="fa fa-shopping-cart fa-lg"></i> Daftar Belanja
-          <button class="btn btn-danger float-right" @click="$emit('clear-list')">
+          <i class="fa fa-shopping-cart fa-lg"></i> Daftar Item
+          <button
+            class="btn btn-danger float-right"
+            @click="$emit('clear-list')"
+          >
             <i class="fa fa-trash"></i> Clear
           </button>
         </h4>
@@ -31,9 +34,14 @@
                 <td>{{ item.jumlah }}</td>
                 <td>{{ item.satuan }}</td>
                 <td>{{ item.harga_satuan | currency }}</td>
-                <td>{{ subTotal(item.harga_satuan, item.jumlah) | currency}}</td>
                 <td>
-                  <button @click="$emit('hapus-belanjaan', item.id)" class="btn btn-sm btn-danger">
+                  {{ subTotal(item.harga_satuan, item.jumlah) | currency }}
+                </td>
+                <td>
+                  <button
+                    @click="$emit('hapus-belanjaan', item.id)"
+                    class="btn btn-sm btn-danger"
+                  >
                     <i class="fa fa-trash"></i>
                   </button>
                   <button
@@ -53,7 +61,7 @@
       <div class="card-footer">
         <span class="float-right">
           <span class="font-weight-bold">Total:</span>
-          {{ total | currency}}
+          {{ total | currency }}
         </span>
       </div>
     </div>
@@ -67,17 +75,17 @@ export default {
   methods: {
     subTotal: function(harga_satuan, jumlah) {
       return harga_satuan * jumlah;
-    }
+    },
   },
   computed: {
     total: function() {
       let i = 0;
-      this.data_belanja.forEach(item => {
+      this.data_belanja.forEach((item) => {
         i += parseFloat(item.jumlah * item.harga_satuan);
       });
       return i;
-    }
-  }
+    },
+  },
 };
 </script>
 

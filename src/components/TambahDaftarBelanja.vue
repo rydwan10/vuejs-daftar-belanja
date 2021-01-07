@@ -1,15 +1,19 @@
 <template>
   <div class>
     <div class="card">
-      <div v-if="showUpdateButton" class="card-header card-header-edit text-white text-center">
+      <div
+        v-if="showUpdateButton"
+        class="card-header card-header-edit text-white text-center"
+      >
         <h4 class="card-title">
           <i class="fa fa-edit"></i> Edit Daftar Belanja
         </h4>
       </div>
-      <div v-if="showProcessButton" class="card-header bg-primary text-white text-center">
-        <h4 class="card-title">
-          <i class="fa fa-plus"></i> Tambah Daftar Belanja
-        </h4>
+      <div
+        v-if="showProcessButton"
+        class="card-header bg-primary text-white text-center"
+      >
+        <h4 class="card-title"><i class="fa fa-plus"></i> Tambah Item</h4>
       </div>
       <div class="card-body" v-if="toggleForm">
         <form>
@@ -18,35 +22,33 @@
             <input
               type="text"
               class="form-control"
-              v-bind:class="{'is-invalid': validasiNama}"
+              v-bind:class="{ 'is-invalid': validasiNama }"
               name="namaBelanjaan"
               v-model="namaBelanjaan"
             />
-            <small
-              v-if="validasiNama"
-              class="form-text text-danger"
-            >Nama Belanjaan tidak boleh kosong!</small>
+            <small v-if="validasiNama" class="form-text text-danger"
+              >Nama Belanjaan tidak boleh kosong!</small
+            >
           </div>
           <div class="form-group">
             <label for="jumlah">Jumlah</label>
             <input
               type="number"
               class="form-control col-5"
-              v-bind:class="{'is-invalid': validasiJumlah}"
+              v-bind:class="{ 'is-invalid': validasiJumlah }"
               name="jumlah"
               v-model="jumlah"
             />
-            <small
-              v-if="validasiJumlah"
-              class="form-text text-danger"
-            >Jumlah tidak boleh kosong atau kurang dari nol!</small>
+            <small v-if="validasiJumlah" class="form-text text-danger"
+              >Jumlah tidak boleh kosong atau kurang dari nol!</small
+            >
           </div>
           <div class="form-group">
             <label for="satuan">Satuan</label>
             <select
               name="satuan"
               class="form-control col-7"
-              v-bind:class="{'is-invalid': validasiSatuan}"
+              v-bind:class="{ 'is-invalid': validasiSatuan }"
               v-model="satuan"
             >
               <option value selected disabled>Pilih Satuan</option>
@@ -58,7 +60,9 @@
               <option value="renteng">Renteng</option>
               <option value="karton">Karton</option>
             </select>
-            <small v-if="validasiSatuan" class="form-text text-danger">Satuan harus dipilih!</small>
+            <small v-if="validasiSatuan" class="form-text text-danger"
+              >Satuan harus dipilih!</small
+            >
           </div>
           <label for="hargaSatuan">Harga Satuan</label>
           <div class="input-group mb-2 mr-sm-2">
@@ -68,14 +72,13 @@
             <input
               type="number"
               class="form-control"
-              v-bind:class="{'is-invalid': validasiHarga}"
+              v-bind:class="{ 'is-invalid': validasiHarga }"
               name="hargaSatuan"
               v-model="hargaSatuan"
             />
-            <small
-              v-if="validasiHarga"
-              class="form-text text-danger"
-            >Harga satuan harus diisi dan tidak boleh negatif!</small>
+            <small v-if="validasiHarga" class="form-text text-danger"
+              >Harga satuan harus diisi dan tidak boleh negatif!</small
+            >
           </div>
 
           <button
@@ -83,14 +86,23 @@
             @click="tambahBelanjaan"
             class="btn btn-success btn-block mt-4"
             type="button"
-          >Proses</button>
+          >
+            Proses
+          </button>
           <div v-if="showUpdateButton">
             <button
               @click="updateBelanjaan"
               class="btn btn-primary btn-block mt-4"
               type="button"
-            >Update</button>
-            <button @click="batalEdit" class="float-right btn btn-danger btn-block">Batal</button>
+            >
+              Update
+            </button>
+            <button
+              @click="batalEdit"
+              class="float-right btn btn-danger btn-block"
+            >
+              Batal
+            </button>
           </div>
         </form>
       </div>
@@ -126,7 +138,7 @@ export default {
       showUpdateButton: false,
 
       // Show Process button
-      showProcessButton: true
+      showProcessButton: true,
     };
   },
   methods: {
@@ -159,7 +171,7 @@ export default {
           nama_belanjaan: this.namaBelanjaan,
           jumlah: this.jumlah,
           satuan: this.satuan,
-          harga_satuan: this.hargaSatuan
+          harga_satuan: this.hargaSatuan,
         };
 
         // Kirim ke App.vue
@@ -184,7 +196,7 @@ export default {
         nama_belanjaan: this.namaBelanjaan,
         jumlah: this.jumlah,
         satuan: this.satuan,
-        harga_satuan: this.hargaSatuan
+        harga_satuan: this.hargaSatuan,
       };
 
       // Send edited data to App.vue
@@ -206,7 +218,7 @@ export default {
       this.jumlah = "";
       this.satuan = "";
       this.hargaSatuan = "";
-    }
+    },
   },
   watch: {
     namaBelanjaan: function() {
@@ -232,8 +244,8 @@ export default {
       } else if (this.hargaSatuan != "") {
         this.validasiHarga = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

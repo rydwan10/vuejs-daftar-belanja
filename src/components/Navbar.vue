@@ -1,6 +1,11 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-1">
-    <img class="navbar-brand d-inline-block align-top" width="40px" height src="../assets/logo.png" />
+    <img
+      class="navbar-brand d-inline-block align-top"
+      width="40px"
+      height
+      src="../assets/logo.png"
+    />
     <a class="navbar-brand" href="#">Vue Kasir</a>
     <button
       class="navbar-toggler"
@@ -14,25 +19,25 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active px-1 py-1">
-          <a class="btn btn-sm nav-link" href="#">Vue Router</a>
+          <a class="btn btn-sm nav-link" href="#">Login</a>
         </li>
         <li class="nav-item active px-1 py-1">
-          <a class="btn btn-sm nav-link" href="#">Vue Router</a>
+          <a class="btn btn-sm nav-link" href="#">History</a>
         </li>
         <li class="nav-item active px-1 py-1">
-          <a class="btn btn-sm nav-link" href="#">Vue Router</a>
+          <a class="btn btn-sm nav-link" href="#">About</a>
         </li>
       </ul>
-    </div>
+    </div> -->
   </nav>
 </template>
 
 <script>
 export default {
-  name: "Navbar"
+  name: "Navbar",
 };
 </script>
 
